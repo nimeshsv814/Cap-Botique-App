@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boutique-deploy
+  namespace: cap-ns
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: cap-boutique
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: cap-boutique
+    spec:
+      containers:
+        - name: boutique-cont
+          image: nimeshsv814/cap-boutique:latest
+          ports:
+            - containerPort: 3015
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: cap-secret
+                  key: MONGO_URI
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: cap-secret
+                  key: PORT
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cap-secret
+                  key: SESSION_SECRET
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
