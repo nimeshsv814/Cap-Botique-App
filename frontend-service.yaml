@@ -4,7 +4,7 @@ metadata:
   name: boutique-svc
   namespace: cap-ns
 spec:
-  selectors:
+  selector:
     app: cap-boutique
   ports:
     - port: 3015
