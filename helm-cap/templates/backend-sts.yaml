@@ -43,5 +43,16 @@ spec:
             limits:
               cpu: "200m"
               memory: "512Mi"
-              
+          volumeMounts:
+          - name: nimesh-vct
+            mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: nimesh-vct
+      spec:
+        storageClassName: "cap-sc"
+        accessModes: ["ReadWriteMany"]
+        resources:
+          requests:
+            storage: 2Gi
         
