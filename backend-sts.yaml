@@ -50,10 +50,10 @@ spec:
     - metadata:
         name: nimesh-vct
       spec:
-        storageClassName: cap-sc
+        storageClassName: "cap-sc"
         accessModes: ["ReadWriteMany"]
         resources:
           requests:
-            storage: "2Gi"
+            storage: 2Gi
               
         
