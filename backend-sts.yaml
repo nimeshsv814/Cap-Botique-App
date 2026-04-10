@@ -36,6 +36,9 @@ spec:
                 secretKeyRef:
                   name: cap-secret
                   key: SESSION_SECRET
+          volumeMounts:
+          - name: nimesh-vct
+            mountPath: /data/db
           resources:
             requests:
               cpu: "100m"
@@ -43,5 +46,14 @@ spec:
             limits:
               cpu: "200m"
               memory: "512Mi"
+  volumeClaimTemplates:
+    - metadata:
+        name: nimesh-vct
+      spec:
+        storageClassName: cap-sc
+        accessModes: ["ReadWriteMany"]
+        resources:
+          requests:
+            storage: "2Gi"
               
         
